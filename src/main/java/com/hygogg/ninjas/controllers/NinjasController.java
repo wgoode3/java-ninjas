@@ -63,4 +63,16 @@ public class NinjasController {
 		}
 	}
 	
+	@GetMapping("/ninjas/{id}/delete")
+	public String removeNinja(@PathVariable("id") Long id) {
+		ninServ.remove(id);
+		return "redirect:/";
+	}
+	
+	@GetMapping("/ninjas/top/3")
+	public String top3(Model model) {
+		model.addAttribute("ninjas", ninServ.top3ninjaMastersYo());
+		return "topNinjas.jsp";
+	}
+	
 }

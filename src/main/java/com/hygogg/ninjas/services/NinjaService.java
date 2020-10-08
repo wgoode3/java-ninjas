@@ -40,4 +40,12 @@ public class NinjaService {
 		return ninjaRepo.save(toUpdate);
 	}
 	
+	public void remove(Long id) {
+		ninjaRepo.deleteById(id);
+	}
+	
+	public List<Ninja> top3ninjaMastersYo() {
+		return ninjaRepo.top3NinjasWoah();
+	}
+	
 }

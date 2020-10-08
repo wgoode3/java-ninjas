@@ -14,6 +14,7 @@
 <body>
     <div class="container">
         <h1>Ninja Info</h1>
+        <a href="/ninjas/top/3">Show me the best ninjas!</a>
         <img src="/images/ninja.jpeg" alt="ninja picture" />
         <div class="row mt-5">
             <div class="col-sm-8">
@@ -22,12 +23,14 @@
                         <th>Name</th>
                         <th>Hometown</th>
                         <th>Level</th>
+                        <th style="width: 50px;"></th>
                     </tr>
                     <c:forEach items="${ninjas}" var="ninja">
                         <tr>
                             <td><a href="/ninjas/${ninja.id}">${ninja.name}</a></td>
                             <td>${ninja.hometown}</td>
                             <td>${ninja.level}</td>
+                            <td><a href="/ninjas/${ninja.id}/delete" class="btn btn-sm btn-outline-danger">&times;</a></td>
                         </tr>
                     </c:forEach>
                 </table>
@@ -47,12 +50,8 @@
 		            </div>
 		            <div class="form-group">
 		                <label>Level:</label>
-		                <select name="level" class="form-control">
-		                    <option>Master</option>
-		                    <option>Senior</option>
-		                    <option>Junior</option>
-		                    <option>Apprentice</option>
-		                </select>
+		                <form:input path="level" type="number" class="form-control" />
+                        <form:errors path="level" class="text-danger" />
 		            </div>
 		            <input type="submit" value="Add Ninja" class="btn btn-outline-dark" />
 		        </form:form>
