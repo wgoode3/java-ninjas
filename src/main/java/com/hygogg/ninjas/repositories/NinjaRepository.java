@@ -14,5 +14,9 @@ public interface NinjaRepository extends CrudRepository<Ninja, Long> {
 	
 	@Query(value="SELECT * FROM ninjas ORDER BY level DESC LIMIT 3", nativeQuery=true)
 	List<Ninja> top3NinjasWoah();
+
+	List<Ninja> findByNameContaining(String search);
+
+	List<Ninja> findByHometownContaining(String search);
 	
 }

@@ -1,5 +1,6 @@
 package com.hygogg.ninjas.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,6 +47,15 @@ public class NinjaService {
 	
 	public List<Ninja> top3ninjaMastersYo() {
 		return ninjaRepo.top3NinjasWoah();
+	}
+	
+	public List<Ninja> search(String search) {
+		List<Ninja> ninjas = ninjaRepo.findByNameContaining(search);
+		List<Ninja> byTown = ninjaRepo.findByHometownContaining(search);
+		for(Ninja n : byTown) {
+			ninjas.add(n);
+		}
+		return ninjas;
 	}
 	
 }

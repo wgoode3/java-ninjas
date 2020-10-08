@@ -18,6 +18,10 @@
         <img src="/images/ninja.jpeg" alt="ninja picture" />
         <div class="row mt-5">
             <div class="col-sm-8">
+                <form action="/" method="get">
+                    <input type="text" placeholder="search" name="search" />
+                    <input type="submit" value="Seach" class="btn btn-info" />
+                </form>
                 <table class="table table-striped">
                     <tr>
                         <th>Name</th>

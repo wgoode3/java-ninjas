@@ -1,7 +1,5 @@
 package com.hygogg.ninjas.controllers;
 
-import java.sql.ResultSet;
-
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
@@ -11,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.hygogg.ninjas.models.Ninja;
 import com.hygogg.ninjas.services.NinjaService;
@@ -26,8 +25,13 @@ public class NinjasController {
 	}
 	
 	@GetMapping("/")
-	public String index(Model model) {
-		model.addAttribute("ninjas", ninServ.getAll());
+	public String index(@RequestParam(value="search", required=false) String search, Model model) {
+		System.out.println(search);
+		if(search == null) {
+			model.addAttribute("ninjas", ninServ.getAll());			
+		} else {
+			model.addAttribute("ninjas", ninServ.search(search));	
+		}
 		model.addAttribute("newNinja", new Ninja());
 		return "index.jsp";
 	}
