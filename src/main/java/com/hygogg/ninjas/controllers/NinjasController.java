@@ -10,18 +10,23 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.hygogg.ninjas.models.Ninja;
+import com.hygogg.ninjas.models.Technique;
 import com.hygogg.ninjas.services.NinjaService;
+import com.hygogg.ninjas.services.TechniqueService;
 
 
 @Controller
 public class NinjasController {
 
 	private static NinjaService ninServ;
+	private static TechniqueService techServ;
 	
-	public NinjasController(NinjaService ninServ) {
+	public NinjasController(NinjaService ninServ, TechniqueService techServ) {
 		this.ninServ = ninServ;
+		this.techServ = techServ;
 	}
 	
 	@GetMapping("/")
@@ -77,6 +82,35 @@ public class NinjasController {
 	public String top3(Model model) {
 		model.addAttribute("ninjas", ninServ.top3ninjaMastersYo());
 		return "topNinjas.jsp";
+	}
+	
+	@GetMapping("/techs/new")
+	public String newTechs(Model model) {
+		model.addAttribute("allNinjas", ninServ.getAll());
+		model.addAttribute("newTech", new Technique());
+		return "newTech.jsp";
+	}
+	
+	@PostMapping("/techs")
+	public String addTechs(@Valid @ModelAttribute("newTech") Technique newTech, BindingResult result, Model model) {
+		if(result.hasErrors()) {
+			model.addAttribute("allNinjas", ninServ.getAll());
+			return "newTech.jsp";
+		}
+		techServ.create(newTech);
+		return "redirect:/";
+	}
+	
+	@PostMapping("/addtech")
+	public String addTechAgain(@RequestParam("name") String name, @RequestParam("ninja") Long ninja_id, RedirectAttributes flash) {
+		Technique jutsu = new Technique(name);
+		if(name.length() < 3) {
+			flash.addFlashAttribute("nameError", "Technique name must be 3 characters or longer!");
+			return "redirect:/ninjas/" + ninja_id;
+		}
+		jutsu.setNinja( ninServ.getOne(ninja_id) );
+		techServ.create(jutsu);
+		return "redirect:/ninjas/" + ninja_id;
 	}
 	
 }

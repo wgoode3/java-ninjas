@@ -15,6 +15,7 @@
     <div class="container">
         <h1>Ninja Info</h1>
         <a href="/ninjas/top/3">Show me the best ninjas!</a>
+        <a href="/techs/new">Study the ninja ways!</a>
         <img src="/images/ninja.jpeg" alt="ninja picture" />
         <div class="row mt-5">
             <div class="col-sm-8">
@@ -27,6 +28,7 @@
                         <th>Name</th>
                         <th>Hometown</th>
                         <th>Level</th>
+                        <th>Number of Techniques</th>
                         <th style="width: 50px;"></th>
                     </tr>
                     <c:forEach items="${ninjas}" var="ninja">
@@ -34,6 +36,7 @@
                             <td><a href="/ninjas/${ninja.id}">${ninja.name}</a></td>
                             <td>${ninja.hometown}</td>
                             <td>${ninja.level}</td>
+                            <td>${ninja.techniques.size()}</td>
                             <td><a href="/ninjas/${ninja.id}/delete" class="btn btn-sm btn-outline-danger">&times;</a></td>
                         </tr>
                     </c:forEach>

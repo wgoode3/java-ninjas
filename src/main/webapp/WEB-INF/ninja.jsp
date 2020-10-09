@@ -16,6 +16,31 @@
 	<div class="container">
 		<h1>Ninja Info</h1>
 		<a href="/">Home</a>
+		
+		<div class="row">
+		  <div class="col-sm-6 offset-sm-3">
+		      <div class="card">
+		          <div class="card-header">${singleNinja.name}</div>
+		          <div class="card-body">
+		              <p>Hometown: ${singleNinja.hometown}</p>
+		              <p>Level: ${singleNinja.level}</p>
+		              <p>Techniques:</p>
+		              <ul>
+		                  <c:forEach items="${singleNinja.techniques}" var="tech">
+		                  <li>${tech.name}</li>
+		                  </c:forEach>
+		              </ul>
+		              <form action="/addtech" method="post">
+		                  <input type="text" name="name" />
+		                  <input type="hidden" name="ninja" value="${singleNinja.id}" />
+		                  <input type="submit" value="Add" class="btn btn-sm btn-dark" />
+		                  <p class="text-danger">${nameError}</p>
+		              </form>
+		          </div>
+		      </div>
+		  </div>
+		</div>
+		
 		<form:form action="/ninjas/${singleNinja.id}/update" method="post"
 			modelAttribute="singleNinja">
 			<div class="form-group">
